@@ -37,7 +37,6 @@ const employeeSchema = new mongoose.Schema({
   },
 });
 
-console.log("mongoose modeks", mongoose.models);
 const Employee =
   mongoose.models.employees || mongoose.model("employees", employeeSchema);
 

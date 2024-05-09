@@ -39,9 +39,12 @@ const salarySchema = new mongoose.Schema({
   email: {
     type: String,
   },
+  isEndOfService: {
+    type: Boolean,
+    default: false,
+  },
 });
 
-console.log("mongoose modeks", mongoose.models);
 const Salaries =
   mongoose.models.salaries || mongoose.model("salaries", salarySchema);
 

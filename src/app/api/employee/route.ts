@@ -59,7 +59,6 @@ export async function POST(request: NextRequest) {
 
       console.log("savedEmployee", savedEmployee);
       console.log("savedSalary", savedSalary);
-      // console.log("get all employee", await Employee.find());
 
       return NextResponse.json({
         message: "Success",

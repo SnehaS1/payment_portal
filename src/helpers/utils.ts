@@ -10,3 +10,12 @@ export const handleAmount = (amount: number): string => {
     currency: "AED",
   }).format(amount);
 };
+
+export const handleGrossCalculation = (
+  base: number,
+  tax: number,
+  deduction: number,
+  allowances: number
+): number => {
+  return 0;
+};

@@ -8,7 +8,6 @@ export async function connect() {
     connection.on("connected", () => {
       console.log("Database connected");
     });
-    console.log("(mongoUrl!", mongoUrl!);
     connection.on("error", (err) => {
       console.error("Database connection failed: ", err);
       process.exit();

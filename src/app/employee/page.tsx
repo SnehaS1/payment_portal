@@ -45,7 +45,6 @@ export default function SignupPage() {
       }
     } catch (error: any) {
       console.log("Signup failed", error);
-      // alert(error.message);
     } finally {
       setLoading(false);
     }
@@ -130,7 +129,7 @@ export default function SignupPage() {
         type="number"
         value={user.basicSalary}
         onChange={(e) => setUser({ ...user, basicSalary: e.target.value + "" })}
-        placeholder="password"
+        placeholder="Enter Basic Salry"
       />
       <section className="flex gap-3 my-5">
         <TextField

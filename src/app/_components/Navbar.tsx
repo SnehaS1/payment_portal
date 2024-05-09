@@ -14,7 +14,7 @@ export default function Navbar() {
           <Link href="/api/auth/signout">Sign Out</Link>
         </li>
         <li>
-          <Link href="/employeList">Employee</Link>
+          <Link href="/employee-list">Employee</Link>
         </li>
         <li>
           <Link href="/employee">Create Employee</Link>
