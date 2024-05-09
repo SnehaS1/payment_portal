@@ -11,6 +11,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { handledateFormat } from "@/helpers/utils";
 import Image from "next/image";
+import { EmployeeType } from "../test/page";
 
 type EmployeeListType = {
   _id: String;
@@ -37,18 +38,19 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
     backgroundColor: theme.palette.action.hover,
   },
-  // hide last border
   "&:last-child td, &:last-child th": {
     border: 0,
   },
 }));
-function EmployeesList({ employees }: { employees: EmployeeListType[] }) {
-  console.log("employees", employees);
+function EmployeesList({ employees }: { employees: EmployeeType[] }) {
   return (
-    <div style={{ padding: "20px" }}>
-      EmployeesList
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 700 }} aria-label="customized table">
+    <div style={{}}>
+      <TableContainer component={Paper} sx={{ maxHeight: 550 }}>
+        <Table
+          stickyHeader
+          sx={{ minWidth: 700 }}
+          aria-label="customized table"
+        >
           <TableHead>
             <TableRow>
               <StyledTableCell>Full Name</StyledTableCell>
@@ -59,7 +61,7 @@ function EmployeesList({ employees }: { employees: EmployeeListType[] }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {employees.map((row: EmployeeListType) => {
+            {employees.map((row: EmployeeType) => {
               var dt = dayjs(row.joiningDate).format("D-MMM-YYYY");
               return (
                 <StyledTableRow key={row._id + ""}>

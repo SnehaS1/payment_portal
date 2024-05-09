@@ -9,13 +9,13 @@ export async function GET() {
     const employees = await Employee.find({});
     return NextResponse.json({
       message: "Employees fetched",
-      data: employees,
+      employeeList: employees,
       status: 200,
     });
   } catch (err: any) {
     return NextResponse.json({
       message: "Error fetching employees",
-      data: err.message,
+      employeeList: err.message,
       status: 500,
     });
   }
