@@ -9,12 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@amcharts/amcharts5": "^5.9.7",
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@mui/icons-material": "^5.15.16",
     "@mui/material-nextjs": "^5.15.11",
+    "@mui/x-charts": "^7.3.2",
     "@mui/x-date-pickers": "^7.3.2",
     "axios": "^1.6.8",
     "bcryptjs": "^2.4.3",

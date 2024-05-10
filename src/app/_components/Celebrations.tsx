@@ -55,6 +55,8 @@ function Celebrations({ employees }: { employees: EmployeeType[] }) {
           </TableHead>
           <TableBody>
             {filteredEmployees.map((employee) => {
+              const currentYear = dayjs().year();
+              const joiningYear = dayjs(employee.joiningDate).year();
               return (
                 <StyledTableRow key={employee._id + ""}>
                   <StyledTableCell component="th" scope="row">
@@ -65,7 +67,7 @@ function Celebrations({ employees }: { employees: EmployeeType[] }) {
                   </StyledTableCell>
 
                   <StyledTableCell align="right">
-                    {handledateFormat(employee.joiningDate)}
+                    {currentYear - joiningYear} year Anniversay
                   </StyledTableCell>
                 </StyledTableRow>
               );
