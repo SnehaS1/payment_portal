@@ -1,31 +1,74 @@
-import Link from "next/link";
+"use client";
+import { useState } from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import Drawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import MailIcon from "@mui/icons-material/Mail";
 
 export default function Navbar() {
+  const [open, setOpen] = useState(false);
+  const toggleDrawer = (newOpen: boolean) => () => {
+    setOpen(newOpen);
+  };
+  const DrawerList = (
+    <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
+      <List>
+        {["Employees", "Salary"].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  );
+
   return (
-    <nav className="bg-blue-800 p-4">
-      <ul className="flex justify-evenly text-2xl font-bold">
-        <li>
-          <Link href="/">Home</Link>
-        </li>
-        <li>
-          <Link href="/api/auth/signin">Sign In</Link>
-        </li>
-        <li>
-          <Link href="/api/auth/signout">Sign Out</Link>
-        </li>
-        <li>
-          <Link href="/employee-list">Employee</Link>
-        </li>
-        <li>
-          <Link href="/employee">Create Employee</Link>
-        </li>
-        <li>
-          <Link href="/salary">Salary</Link>
-        </li>
-        <li>
-          <Link href="/payment-history">Payment History</Link>
-        </li>
-      </ul>
-    </nav>
+    <>
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2 }}
+              onClick={toggleDrawer(true)}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              Epenred
+            </Typography>
+            <Button>
+              {" "}
+              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                Epenred
+              </Typography>
+            </Button>
+          </Toolbar>
+        </AppBar>
+        <Drawer open={open} onClose={toggleDrawer(false)}>
+          {DrawerList}
+        </Drawer>
+      </Box>
+    </>
   );
 }

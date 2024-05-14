@@ -23,12 +23,11 @@ export async function GET() {
 
 export async function PUT(req: NextRequest) {
   try {
-    console.log("body PURT salary", req.body);
     const updateSalaryList = await Salaries.updateMany(
       { $set: { salaryStatus: SalaryStatus.PAID } },
       { upsert: true }
     );
-    console.log("updateSalaryList", updateSalaryList);
+
     return NextResponse.json({
       message: "Salary Paid Successfully!!",
       salary: updateSalaryList,

@@ -2,15 +2,17 @@ import Employee from "@/models/employees";
 import { NextRequest, NextResponse } from "next/server";
 import { connect } from "@/dbconfig/dbConfig";
 import { getDataFromToken } from "@/helpers/getDatafromToken";
-import { de, faker } from "@faker-js/faker";
 import Salaries from "@/models/salary";
+import { getRandomRole } from "@/helpers/utils";
+import { SalaryStatus } from "@/helpers/constants";
+import { faker } from "@faker-js/faker";
 
 connect();
 
 export async function POST(request: NextRequest) {
   const reqBody = await request.json();
   const {
-    allowance,
+    allowances,
     fullName,
     joiningDate,
     basicSalary,
@@ -19,46 +21,43 @@ export async function POST(request: NextRequest) {
     tax,
     deduction,
     salaryStatus,
+    email,
   } = reqBody;
-  console.log("employees post request: ", reqBody);
+
   try {
     const employeeById = await Employee.findOne({ employeeId });
     if (employeeById) {
-      throw NextResponse.json({
-        message: "Error:EmployeeId already exists",
+      return NextResponse.json({
+        data: "EmployeeId already exists",
+        message: "Error",
         status: 500,
       });
     } else {
       const newEmployee = new Employee({
-        fullName: faker.person.fullName(),
+        fullName,
+        email,
         joiningDate,
         basicSalary,
         employeeId,
-        employeeRole,
         avatar: faker.image.urlLoremFlickr({ category: "people" }),
-        email: faker.internet.email(),
-        birthdate: faker.date.between({
-          from: "1992-01-01T00:00:00.000Z",
-          to: "2010-01-01T00:00:00.000Z",
-        }),
+        allowances,
+        employeeRole: getRandomRole(),
       });
+
       const savedEmployee = await newEmployee.save();
+
       const newSalary = await new Salaries({
         employeeId,
-        fullName: savedEmployee.fullName,
+        fullName,
         basicSalary,
-        tax,
-        deduction,
-        allowance,
-        salaryStatus,
-        employeeRole,
-        email: savedEmployee.email,
+        allowances: newEmployee.allowances || 0,
+        joiningDate,
+        email,
+        employeeRole: newEmployee.employeeRole,
+        salaryStatus: SalaryStatus.PENDING,
       });
 
       const savedSalary = await newSalary.save();
-
-      console.log("savedEmployee", savedEmployee);
-      console.log("savedSalary", savedSalary);
 
       return NextResponse.json({
         message: "Success",

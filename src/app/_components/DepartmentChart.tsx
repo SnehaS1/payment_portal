@@ -1,7 +1,5 @@
-import { useEffect, useLayoutEffect, useState } from "react";
-
-import { EmployeeType } from "../test/page";
-import { EmployeeRoles } from "@/helpers/constants";
+import { useEffect, useState } from "react";
+import Typography from "@mui/material/Typography";
 
 import { PieChart } from "@mui/x-charts/PieChart";
 
@@ -18,12 +16,12 @@ type RoleCount = {
 export default function DepartmentChart({
   employees = [],
 }: {
-  employees: EmployeeType[];
+  employees: any[];
 }) {
   const [piedata, setPieData] = useState<RoleCount[]>([]);
   useEffect(() => {
     const roleCounts: RoleCount[] = employees.reduce(
-      (acc: RoleCount[], employee: EmployeeType) => {
+      (acc: RoleCount[], employee: any) => {
         const existingRoleIndex = acc.findIndex(
           (item) => item.label === employee.employeeRole
         );
@@ -43,17 +41,24 @@ export default function DepartmentChart({
     setPieData(roleCounts);
   }, [employees]);
   return (
-    <>
-      {" "}
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <Typography variant="h4" gutterBottom textAlign="center">
+        Employees vs Role
+      </Typography>
       <PieChart
         series={[
           {
             data: piedata,
           },
         ]}
-        width={800}
-        height={200}
+        width={550}
+        height={400}
       />
-    </>
+    </div>
   );
 }

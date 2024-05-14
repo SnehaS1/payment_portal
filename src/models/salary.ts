@@ -1,4 +1,5 @@
 import { EmployeeRoles, SalaryStatus } from "@/helpers/constants";
+import { getListItemSecondaryActionClassesUtilityClass } from "@mui/material";
 import mongoose from "mongoose";
 
 const salarySchema = new mongoose.Schema({
@@ -28,7 +29,8 @@ const salarySchema = new mongoose.Schema({
   deduction: {
     type: Number,
   },
-  allowance: {
+  addition: { type: Number },
+  allowances: {
     type: Number,
   },
   salaryStatus: {
@@ -42,6 +44,12 @@ const salarySchema = new mongoose.Schema({
   isEndOfService: {
     type: Boolean,
     default: false,
+  },
+  grossSalary: {
+    type: Number,
+  },
+  processDate: {
+    type: Date,
   },
 });
 

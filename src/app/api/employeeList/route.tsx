@@ -1,11 +1,12 @@
 import Employee from "@/models/employees";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { connect } from "@/dbconfig/dbConfig";
 import { getDataFromToken } from "@/helpers/getDatafromToken";
 
 connect();
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
+    const userToken = await getDataFromToken(request);
     const employees = await Employee.find({});
     return NextResponse.json({
       message: "Employees fetched",

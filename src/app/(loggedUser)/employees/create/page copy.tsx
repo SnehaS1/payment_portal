@@ -68,7 +68,6 @@ export default function SignupPage() {
         {loading ? "Processing..." : "Employee"}
       </Typography>
 
-      <hr />
       <Toaster />
       <label htmlFor="username">Full Name</label>
       <input

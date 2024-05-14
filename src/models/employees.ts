@@ -13,8 +13,6 @@ const employeeSchema = new mongoose.Schema({
   },
   joiningDate: {
     type: String,
-    // type: Date,
-    // default: Date.now,
     required: [true, "Please provide a joining date"],
   },
   basicSalary: {
@@ -26,14 +24,12 @@ const employeeSchema = new mongoose.Schema({
     enum: Object.values(EmployeeRoles),
     required: true,
   },
-  avatar: {
-    type: String,
+  allowances: {
+    type: Number,
+    default: 0,
   },
   email: {
     type: String,
-  },
-  birthDate: {
-    type: Date,
   },
 });
 

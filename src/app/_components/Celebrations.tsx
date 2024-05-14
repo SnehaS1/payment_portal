@@ -1,5 +1,4 @@
 import React from "react";
-import { EmployeeType } from "../test/page";
 import Table from "@mui/material/Table";
 import Typography from "@mui/material/Typography";
 import TableBody from "@mui/material/TableBody";
@@ -11,7 +10,8 @@ import TableRow from "@mui/material/TableRow";
 import { LuFolderOpen } from "react-icons/lu";
 import dayjs from "dayjs";
 import { LuPartyPopper } from "react-icons/lu";
-import { handledateFormat } from "@/helpers/utils";
+import Paper from "@mui/material/Paper";
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -30,9 +30,9 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     border: 0,
   },
 }));
-function Celebrations({ employees }: { employees: EmployeeType[] }) {
+function Celebrations({ employees = [] }: { employees: any[] }) {
   const currentMonth = dayjs().month();
-  const filteredEmployees = employees.filter((employee) => {
+  const filteredEmployees = employees?.filter((employee) => {
     return dayjs(employee.joiningDate).month() == currentMonth;
   });
 
@@ -41,7 +41,7 @@ function Celebrations({ employees }: { employees: EmployeeType[] }) {
       <Typography variant="h4" gutterBottom>
         Anniversaries
       </Typography>
-      <TableContainer sx={{ maxHeight: 440 }}>
+      <TableContainer sx={{ maxHeight: 440 }} component={Paper}>
         <Table
           stickyHeader
           sx={{ minWidth: 300 }}

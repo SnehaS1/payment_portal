@@ -41,23 +41,12 @@ function SalaryFormComponent({ salary }: { salary: SalaryType }) {
     Number(salary.deduction || 0);
 
   const processSalary = async () => {
-    console.log("Processing Salary", salaryfield);
-    console.log(`/api/salary/${salaryfield.employeeId}`);
     const res = await axios.put(`api/salaries/${salaryfield.employeeId}`, {
       ...salaryfield,
       salary: SalaryStatus.PAID,
     });
-
-    // const response = await axios.put(
-    //   `http://localhost:8080/api/v1/maintenance/${id}`,
-    //   {
-    //     maintenanceType: formValues.maintenanceType,
-    //     description: formValues.description,
-    //     maintenanceStatus: formValues.maintenanceStatus,
-    //   }
-    // );
   };
-  console.log("salary", salary);
+
   return (
     <div className="my-2">
       <Accordion>

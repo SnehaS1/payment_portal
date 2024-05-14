@@ -11,7 +11,8 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { handledateFormat } from "@/helpers/utils";
 import Image from "next/image";
-import { EmployeeType } from "../test/page";
+// import { EmployeeType } from "../employee/page";
+import Loader from "./Loader";
 
 type EmployeeListType = {
   _id: String;
@@ -42,26 +43,37 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     border: 0,
   },
 }));
-function EmployeesList({ employees }: { employees: EmployeeType[] }) {
+function EmployeesList({
+  employees,
+  employeeLoader,
+}: {
+  employees: EmployeeListType[];
+  employeeLoader: Boolean;
+}) {
   return (
-    <div style={{}}>
+    <div className="overflow-x-auto">
+      {employeeLoader && <Loader />}
       <TableContainer component={Paper} sx={{ maxHeight: 550 }}>
         <Table
           stickyHeader
-          sx={{ minWidth: 700 }}
+          sx={{
+            minWidth: "80%",
+          }}
           aria-label="customized table"
         >
           <TableHead>
             <TableRow>
               <StyledTableCell>Full Name</StyledTableCell>
-              <StyledTableCell align="right">Role</StyledTableCell>
+              <StyledTableCell align="right">Employee ID</StyledTableCell>
+              <StyledTableCell align="right" className="hidden lg:block">
+                Role
+              </StyledTableCell>
               <StyledTableCell align="right">Joining Date</StyledTableCell>
-              <StyledTableCell align="right">Birt Date</StyledTableCell>
-              <StyledTableCell align="right">Basic Salry</StyledTableCell>
+              <StyledTableCell align="right">Basic Salary</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {employees.map((row: EmployeeType) => {
+            {employees.map((row: EmployeeListType) => {
               var dt = dayjs(row.joiningDate).format("D-MMM-YYYY");
               return (
                 <StyledTableRow key={row._id + ""}>
@@ -71,22 +83,27 @@ function EmployeesList({ employees }: { employees: EmployeeType[] }) {
                         alt={row.fullName + ""}
                         height={50}
                         width={50}
-                        src={row.avatar + ""}
-                        className="rounded-full"
+                        src={
+                          row.avatar
+                            ? row.avatar + ""
+                            : "https://loremflickr.com/640/480/people?lock=2596792350801920"
+                        }
+                        className="rounded-full hidden lg:block"
                       />
                       {row.fullName}
                     </section>
                   </StyledTableCell>
                   <StyledTableCell align="right">
+                    {row.employeeId}
+                  </StyledTableCell>
+                  <StyledTableCell align="right" className="hidden lg:block">
                     {row.employeeRole}
                   </StyledTableCell>
                   <StyledTableCell align="right">
                     {" "}
                     {handledateFormat(row.joiningDate)}
                   </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {handledateFormat(row.birthDate)}
-                  </StyledTableCell>
+
                   <StyledTableCell align="right">
                     AED {row.basicSalary}
                   </StyledTableCell>

@@ -15,23 +15,22 @@ import Switch from "@mui/material/Switch";
 import SalaryFormComponent from "./SalaryForm";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import { useEffect, useState } from "react";
+import SalaryTable from "./SalaryTable";
 
-// const StyledAccordian = styled(AccordionSummary)(({ theme }) => ({
-//   [`&.${tableCellClasses.head}`]: {
-//     backgroundColor: theme.palette.common.black,
-//     color: theme.palette.common.white,
-//   },
-//   [`&.${tableCellClasses.body}`]: {
-//     fontSize: 14,
-//   },
-// }));
-async function SalaryListComponent({ salarylist }: { salarylist: any }) {
+function SalaryListComponent({
+  salaryList,
+  paymentHistory = false,
+}: {
+  salaryList: any;
+  paymentHistory?: Boolean;
+}) {
+  const [apiLoader, setApiLoader] = useState<boolean>(false);
   const processAllSalary = async () => {
     try {
       console.log("Processing all salary");
-      debugger;
+
       const res = await axios.put(`api/salaries`);
-      debugger;
       console.log("res", res);
     } catch (err) {
       toast.error("Error processing salary");
@@ -39,13 +38,7 @@ async function SalaryListComponent({ salarylist }: { salarylist: any }) {
   };
   return (
     <div>
-      <Button variant="contained" onClick={processAllSalary}>
-        Process Salary
-      </Button>
-      <Toaster />
-      {salarylist.map((salary: any) => {
-        return <SalaryFormComponent key={salary.employeeId} salary={salary} />;
-      })}
+      <SalaryTable salaries={salaryList} paymentHistory={paymentHistory} />
     </div>
   );
 }

@@ -7,18 +7,25 @@ connect();
 export async function PUT(req: NextRequest) {
   try {
     const body = await req.json();
-    console.log("body PURT salary", body);
-    // const ticketData = body.formData;
-    const { _id, isEndOfService } = body;
 
-    // const updateTicketData = await Ticket.findByIdAndUpdate(id, {
-    //   ...ticketData,
-    // });
+    const {
+      _id,
+      isEOS,
+      basicSalary,
+      allowances = 0,
+      addition,
+      deduction,
+      processDate,
+    } = body;
+    const gross = basicSalary + allowances + addition - deduction;
     const updateSalaryData = await Salaries.findByIdAndUpdate(_id, {
       salaryStatus: SalaryStatus.PAID,
-      isEndOfService,
+      isEndOfService: isEOS,
+      addition,
+      deduction,
+      grossSalary: gross,
+      processDate: processDate,
     });
-    console.log("updateSalaryData", updateSalaryData);
 
     return NextResponse.json({
       message: "Salary Paid Successfully!!",
